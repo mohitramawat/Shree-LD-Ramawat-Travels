@@ -1,0 +1,66 @@
+📸 PLACE YOUR IMAGES IN THIS FOLDER
+
+This folder is where all website images should be placed.
+
+📋 REQUIRED IMAGES (40 total):
+
+HERO:
+- hero-library.jpg
+
+BOOKS (12):
+- book1.jpg through book12.jpg
+
+CATEGORIES (6):
+- category-fiction.jpg
+- category-nonfiction.jpg
+- category-selfhelp.jpg
+- category-children.jpg
+- category-graphic.jpg
+- category-mystery.jpg
+
+EVENTS (4):
+- event1.jpg
+- event2.jpg
+- event3.jpg
+- event4.jpg
+
+BLOG (10):
+- blog1.jpg through blog9.jpg
+- blog-featured.jpg
+
+TEAM (4):
+- team1.jpg
+- team2.jpg
+- team3.jpg
+- team4.jpg
+
+AUTHOR (1):
+- author-matt-haig.jpg
+
+---
+
+🌐 FREE IMAGE SOURCES:
+
+1. Unsplash: https://unsplash.com
+   Search: "library", "books", "reading"
+
+2. Pexels: https://pexels.com
+   Search: "bookstore", "reading"
+
+3. Pixabay: https://pixabay.com
+   Search: "books", "literature"
+
+---
+
+📐 IMAGE SIZES:
+
+- Hero: 1920x1080px
+- Books: 600x900px
+- Categories: 800x600px
+- Events: 1200x800px
+- Blog: 800x600px (featured: 1200x800px)
+- Team: 600x600px
+
+---
+
+See IMAGE-GUIDE.md for detailed requirements!

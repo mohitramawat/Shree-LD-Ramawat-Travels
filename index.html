@@ -1,0 +1,1595 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shree LDRamawat Travels - Your Journey, Our Passion</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Tailwind Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'travel-blue': '#442E3A',
+                        'travel-orange': '#D4A574',
+                        'travel-teal': '#8B6F7E',
+                        'travel-dark': '#442E3A',
+                        'travel-cyan': '#B8967D',
+                        'travel-gold': '#D4A574'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Open+Sans:wght@400;600;700&display=swap"
+        rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5 {
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        /* Marquee Animation */
+        :root{
+            /* make these easy to tweak */
+            --marquee-speed: 14s; /* top destinations */
+            --marquee-speed-slow: 12s; /* bottom text marquee */
+            --accent-color: #D4A574; /* travel-gold / travel-orange */
+            --accent-dark: #442E3A; /* travel-dark */
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        .marquee { animation: marquee var(--marquee-speed) linear infinite; }
+
+        .marquee-container:hover .marquee { animation-play-state: paused; }
+
+        /* Hero Bottom Marquee */
+        @keyframes slide { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+        .animate-marquee { animation: slide var(--marquee-speed-slow) linear infinite; display: inline-flex; }
+
+        .destination-card-marquee {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            border: 2px solid transparent;
+            transition: all 0.36s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            min-width: 320px; /* default desktop width */
+        }
+
+        /* subtle shimmer using theme accent */
+        .destination-card-marquee::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(212,165,116,0.12), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .destination-card-marquee:hover::before { left: 100%; }
+
+        .destination-card-marquee:hover {
+            border-color: var(--accent-color);
+            transform: translateY(-8px) scale(1.03);
+            box-shadow: 0 15px 40px rgba(212,165,116,0.20);
+            background: linear-gradient(135deg, #ffffff 0%, #fff7f0 100%);
+        }
+
+        .destination-card-marquee .bus-icon { transition: all 0.36s ease; }
+
+        .destination-card-marquee:hover .bus-icon { transform: translateX(10px); color: var(--accent-color); }
+
+        .destination-card-marquee h3 {
+            background: linear-gradient(135deg, var(--accent-dark), var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            transition: all 0.28s ease;
+        }
+
+        .destination-card-marquee:hover h3 { transform: translateX(5px); }
+
+        /* Responsive tweaks: make marquee cards smaller on small screens */
+        @media (max-width: 768px) {
+            .destination-card-marquee { min-width: 220px; padding: 12px; }
+            .destination-card-marquee h3 { font-size: 1rem; }
+            .destination-card-marquee .w-14.h-14 { width: 44px; height: 44px; }
+            .destination-card-marquee .bus-icon i { font-size: 1.4rem; }
+            .marquee { gap: 0.5rem; }
+        }
+
+        @media (max-width: 420px) {
+            .destination-card-marquee { min-width: 200px; padding: 10px; }
+            .destination-card-marquee h3 { font-size: 0.95rem; }
+            .animate-marquee, .marquee { animation-duration: calc(var(--marquee-speed) * 0.9); }
+        }
+
+        /* Textured Background */
+        .textured-bg {
+            background-image:
+                repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255, 255, 255, .05) 10px, rgba(255, 255, 255, .05) 20px),
+                repeating-linear-gradient(-45deg, transparent, transparent 10px, rgba(255, 255, 255, .05) 10px, rgba(255, 255, 255, .05) 20px);
+        }
+
+        /* Gallery Image Cut Border */
+        .gallery-img {
+            clip-path: polygon(10% 0%, 100% 0%, 100% 90%, 90% 100%, 0% 100%, 0% 10%);
+        }
+
+        /* Hero Image Custom Cut - Modern Beveled Shape */
+        .hero-image-cut {
+            clip-path: polygon(8% 0%,
+                    92% 0%,
+                    100% 8%,
+                    100% 75%,
+                    95% 88%,
+                    85% 100%,
+                    15% 100%,
+                    5% 92%,
+                    0% 80%,
+                    0% 12%);
+            border-radius: 20px;
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 20px 20px 60px rgba(0, 0, 0, 0.2), -20px -20px 60px rgba(255, 255, 255, 0.5);
+        }
+
+        .hero-image-cut:hover {
+            clip-path: polygon(5% 0%,
+                    95% 0%,
+                    100% 5%,
+                    100% 78%,
+                    96% 90%,
+                    88% 100%,
+                    12% 100%,
+                    4% 95%,
+                    0% 82%,
+                    0% 10%);
+            filter: brightness(1.05) contrast(1.05);
+            transform: scale(1.02) translateY(-8px);
+            box-shadow: 25px 25px 80px rgba(0, 0, 0, 0.3), -25px -25px 80px rgba(255, 255, 255, 0.6);
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50">
+
+    <!-- Top Bar -->
+    <div class="bg-travel-dark text-white py-3 transition-all duration-300" id="topBar">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row justify-between items-center gap-2 text-sm">
+            <div class="flex items-center gap-6">
+                <a href="tel:+919876543210" class="hover:text-travel-orange transition flex items-center gap-2">
+                    <i class="fas fa-phone"></i>
+                    <span>+91 98765 43210</span>
+                </a>
+                <a href="mailto:info@ldramawat.com" class="hover:text-travel-orange transition flex items-center gap-2">
+                    <i class="fas fa-envelope"></i>
+                    <span>info@ldramawat.com</span>
+                </a>
+            </div>
+            <div class="hidden md:flex items-center gap-4">
+                <a href="#" class="hover:text-travel-orange transition"><i class="fab fa-facebook"></i></a>
+                <a href="#" class="hover:text-travel-orange transition"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="hover:text-travel-orange transition"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="hover:text-travel-orange transition"><i class="fab fa-linkedin"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="sticky top-0 w-full bg-white/95 backdrop-blur-sm shadow-lg z-50" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <a href="index.html" class="flex items-center space-x-3">
+                        <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-md">
+                            <span class="text-travel-cyan text-xl font-black">LD</span>
+                        </div>
+                        <div>
+                            <h1 class="text-2xl font-display font-bold text-travel-dark">Shree LD.Ramawat</h1>
+                            <p class="text-xs text-travel-teal">Travels</p>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="index.html"
+                        class="nav-link text-travel-dark hover:text-travel-blue font-semibold transition">Home</a>
+                    <a href="packages.html" class="nav-link text-gray-700 hover:text-travel-blue transition">Tour
+                        Packages</a>
+                    <a href="about.html" class="nav-link text-gray-700 hover:text-travel-blue transition">About Us</a>
+                    <a href="contact.html" class="nav-link text-gray-700 hover:text-travel-blue transition">Contact</a>
+                    <a href="booking.html"
+                        class="btn-book bg-travel-orange text-white px-6 py-2 rounded-full hover:bg-orange-600 transition font-semibold">
+                        Book Now
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button class="md:hidden text-2xl text-travel-dark" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div class="md:hidden hidden bg-white border-t" id="mobileMenu">
+            <div class="px-4 py-6 space-y-4">
+                <a href="index.html" class="block text-travel-dark font-semibold">Home</a>
+                <a href="packages.html" class="block text-gray-700 hover:text-travel-blue">Tour Packages</a>
+                <a href="about.html" class="block text-gray-700 hover:text-travel-blue">About Us</a>
+                <a href="contact.html" class="block text-gray-700 hover:text-travel-blue">Contact</a>
+                <a href="booking.html" class="block bg-travel-orange text-white px-6 py-2 rounded-full text-center">Book
+                    Now</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Wrapper for Mobile Reordering -->
+    <div class="flex flex-col">
+        <!-- Booking Section (order-2 on mobile, order-1 on desktop) -->
+        <section id="booking" class="relative py-8 mt-6 order-2 md:order-1">
+            <div class="max-w-7xl mx-auto px-4">
+                <div class="bg-white rounded-2xl shadow-2xl overflow-hidden">
+                    <div class="flex flex-col md:flex-row">
+                        <!-- Sidebar -->
+                        <div
+                            class="bg-gradient-to-br from-travel-dark to-travel-teal text-white px-8 py-6 flex items-center justify-center">
+                            <div class="text-center">
+                                <div class="text-base font-semibold">Find Your</div>
+                                <div class="text-2xl font-black mt-1">Destination</div>
+                            </div>
+                        </div>
+
+                        <!-- Form -->
+                        <div class="flex-1 p-6">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4 items-center">
+                            <!-- Source -->
+                            <div class="lg:col-span-1 relative">
+                                <i
+                                    class="fas fa-map-marker-alt text-travel-orange absolute left-3 top-1/2 transform -translate-y-1/2"></i>
+                                <input type="text" placeholder="SOURCE"
+                                    class="w-full border border-gray-300 rounded-lg pl-10 pr-3 py-3 text-sm focus:outline-none focus:border-travel-dark focus:ring-1 focus:ring-travel-dark">
+                            </div>
+
+                            <!-- Swap Icon -->
+                            <div class="hidden lg:flex items-center justify-center">
+                                <button class="bg-travel-dark/10 p-2.5 rounded-full hover:bg-travel-dark/20 transition-colors">
+                                    <i class="fas fa-exchange-alt text-travel-dark"></i>
+                                </button>
+                            </div>
+
+                            <!-- Destination -->
+                            <div class="lg:col-span-1 relative">
+                                <i
+                                    class="fas fa-map-marker-alt text-travel-orange absolute left-3 top-1/2 transform -translate-y-1/2"></i>
+                                <input type="text" placeholder="DESTINATION"
+                                    class="w-full border border-gray-300 rounded-lg pl-10 pr-3 py-3 text-sm focus:outline-none focus:border-travel-dark focus:ring-1 focus:ring-travel-dark">
+                            </div>
+
+                            <!-- Date -->
+                            <div class="lg:col-span-1 relative">
+                                <i
+                                    class="fas fa-calendar text-travel-orange absolute left-3 top-1/2 transform -translate-y-1/2 pointer-events-none"></i>
+                                <input type="date" value="2025-10-31"
+                                    class="w-full border border-gray-300 rounded-lg pl-10 pr-3 py-3 text-sm focus:outline-none focus:border-travel-dark focus:ring-1 focus:ring-travel-dark">
+                            </div>
+
+                            <!-- Return Date -->
+                            <div class="lg:col-span-1 relative">
+                                <i
+                                    class="fas fa-calendar text-travel-orange absolute left-3 top-1/2 transform -translate-y-1/2 pointer-events-none"></i>
+                                <input type="date" placeholder="RETURN DATE"
+                                    class="w-full border border-gray-300 rounded-lg pl-10 pr-3 py-3 text-sm focus:outline-none focus:border-travel-dark focus:ring-1 focus:ring-travel-dark">
+                            </div>
+
+                            <!-- Search Button -->
+                            <div class="lg:col-span-1">
+                                <button
+                                    class="w-full bg-gradient-to-r from-travel-orange to-travel-gold hover:from-travel-gold hover:to-travel-orange text-white px-6 py-3 rounded-lg font-bold text-sm shadow-lg hover:shadow-xl transition-all">
+                                    FIND BUS NOW
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Hero Content Section (order-1 on mobile, order-2 on desktop) -->
+    <section class="relative py-16 overflow-hidden order-1 md:order-2">
+        <!-- Animated Pattern Background -->
+        <div class="absolute inset-0 opacity-5">
+            <div class="absolute top-0 left-0 w-full h-full" style="background-image: radial-gradient(circle, #442E3A 1px, transparent 1px); background-size: 50px 50px;"></div>
+        </div>
+        
+        <div class="max-w-7xl mx-auto px-4 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                <!-- Left Content - 6 columns -->
+                <div class="lg:col-span-6">
+                    <!-- Animated Top Badge -->
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="h-1 w-12 bg-gradient-to-r from-travel-orange to-transparent rounded-full"></div>
+                        <span class="text-sm font-bold text-travel-orange uppercase tracking-wider">Est. 1962</span>
+                    </div>
+                    
+                    <h2 class="text-lg text-gray-600 mb-3 font-semibold">Welcome To</h2>
+                    <h1 class="text-5xl md:text-7xl font-black text-travel-dark mb-6 leading-none">
+                        <span class="text-2xl md:text-3xl font-bold block mb-1">Shree</span>
+                        LD.Ramawat<br/>
+                        <span class="bg-gradient-to-r from-travel-orange via-travel-gold to-travel-teal bg-clip-text text-transparent">TRAVELS</span>
+                    </h1>
+                    
+                    <p class="text-gray-600 leading-relaxed mb-8 text-base max-w-lg">
+                        Your trusted travel partner for over 6 decades. Experience comfort, safety, and reliability on every journey across India.
+                    </p>
+                    
+                    <!-- Quick Info Pills -->
+                    <div class="flex flex-wrap gap-3 mb-8">
+                        <div class="flex items-center gap-2 bg-travel-dark text-white px-4 py-2 rounded-full text-sm font-semibold">
+                            <i class="fas fa-bus"></i>
+                            <span>200+ Buses</span>
+                        </div>
+                        <div class="flex items-center gap-2 bg-travel-orange text-white px-4 py-2 rounded-full text-sm font-semibold">
+                            <i class="fas fa-map-marked-alt"></i>
+                            <span>500+ Routes</span>
+                        </div>
+                        <div class="flex items-center gap-2 bg-travel-teal text-white px-4 py-2 rounded-full text-sm font-semibold">
+                            <i class="fas fa-users"></i>
+                            <span>1M+ Travelers</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Action Buttons -->
+                    <div class="flex flex-wrap gap-4">
+                        <a href="#booking" class="group relative inline-flex items-center gap-2 bg-travel-orange text-white px-8 py-4 rounded-lg font-bold overflow-hidden">
+                            <span class="absolute inset-0 bg-travel-gold transform translate-x-full group-hover:translate-x-0 transition-transform duration-300"></span>
+                            <i class="fas fa-search relative z-10"></i>
+                            <span class="relative z-10">Find Bus</span>
+                        </a>
+                        <a href="tel:+919876543210" class="inline-flex items-center gap-2 border-2 border-travel-dark text-travel-dark px-8 py-4 rounded-lg font-bold hover:bg-travel-dark hover:text-white transition-all duration-300">
+                            <i class="fas fa-phone-alt"></i>
+                            <span>Call Now</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Right Image Grid - 6 columns -->
+                <div class="lg:col-span-6 relative">
+                    <!-- Main Large Image -->
+                    <div class="relative overflow-hidden shadow-2xl" style="clip-path: polygon(0 0, 90% 0, 100% 10%, 100% 90%, 85% 100%, 10% 100%, 0 85%);">
+                        <img src="https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=700&h=500&fit=crop"
+                            alt="Modern Bus" 
+                            class="w-full h-[400px] object-cover">
+                        
+                        <!-- Overlay Gradient -->
+                        <div class="absolute inset-0 bg-gradient-to-t from-travel-dark/50 to-transparent"></div>
+                        
+                    </div>
+                    
+                    <!-- Quick Stats Banner -->
+                    <div class="bg-gradient-to-r from-travel-dark via-travel-teal to-travel-dark rounded-2xl p-4 mt-4 relative overflow-hidden">
+                        <!-- Animated Background -->
+                        <div class="absolute inset-0 opacity-10">
+                            <div class="absolute top-0 left-0 w-20 h-20 bg-white rounded-full blur-xl animate-pulse"></div>
+                            <div class="absolute bottom-0 right-0 w-24 h-24 bg-travel-orange rounded-full blur-xl animate-pulse" style="animation-delay: 1s;"></div>
+                        </div>
+                        
+                        <div class="relative z-10 flex items-center justify-between">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 bg-white/20 backdrop-blur-sm rounded-lg flex items-center justify-center">
+                                    <i class="fas fa-certificate text-travel-orange text-lg"></i>
+                                </div>
+                                <div class="text-white">
+                                    <div class="text-xs opacity-80">Certified & Trusted</div>
+                                    <div class="text-sm font-bold">ISO Certified Service</div>
+                                </div>
+                            </div>
+                            
+                            <div class="hidden sm:flex items-center gap-2 bg-white/10 backdrop-blur-sm px-3 py-1.5 rounded-full">
+                                <i class="fas fa-star text-yellow-400 text-xs"></i>
+                                <span class="text-white text-sm font-bold">4.8/5</span>
+                                <span class="text-white/70 text-xs">(2.5k reviews)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Bottom Marquee Text -->
+            <div class="mt-12 overflow-hidden">
+                <div class="flex gap-8 animate-marquee whitespace-nowrap">
+                    <span class="text-gray-300 font-black text-4xl md:text-6xl lg:text-8xl">TRUSTED</span>
+                    <span class="text-gray-300 font-black text-4xl md:text-6xl lg:text-8xl">•</span>
+                    <span class="text-gray-300 font-black text-4xl md:text-6xl lg:text-8xl">RELIABLE</span>
+                    <span class="text-gray-300 font-black text-4xl md:text-6xl lg:text-8xl">•</span>
+                    <span class="text-gray-300 font-black text-4xl md:text-6xl lg:text-8xl">COMFORTABLE</span>
+                    <span class="text-gray-300 font-black text-4xl md:text-6xl lg:text-8xl">•</span>
+                    <span class="text-gray-300 font-black text-4xl md:text-6xl lg:text-8xl">TRUSTED</span>
+                    <span class="text-gray-300 font-black text-4xl md:text-6xl lg:text-8xl">•</span>
+                    <span class="text-gray-300 font-black text-4xl md:text-6xl lg:text-8xl">RELIABLE</span>
+                    <span class="text-gray-300 font-black text-4xl md:text-6xl lg:text-8xl">•</span>
+                    <span class="text-gray-300 font-black text-4xl md:text-6xl lg:text-8xl">COMFORTABLE</span>
+                    <span class="text-gray-300 font-black text-4xl md:text-6xl lg:text-8xl">•</span>
+                </div>
+            </div>
+        </div>
+    </section>
+    </div>
+    <!-- End Main Content Wrapper -->
+
+    <!-- Top Destinations with Marquee -->
+    <section class="py-12 bg-gradient-to-br from-gray-50 via-white">
+        <div class="text-center mb-8">
+            <h2 class="text-4xl font-black text-travel-dark">
+                Top <span class="text-travel-cyan">DESTINATION</span>
+            </h2>
+            <p class="text-gray-600 mt-2">Hover to explore • Auto-scrolling routes</p>
+        </div>
+
+        <div class="relative overflow-hidden marquee-container">
+            <div class="flex gap-6 marquee whitespace-nowrap py-4">
+                <!-- First Set -->
+                <div class="flex gap-6">
+                    <div class="destination-card-marquee rounded-2xl p-6 inline-block min-w-[320px] shadow-lg">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-xl font-bold">Surat To Jaipur</h3>
+                            <div
+                                class="w-14 h-14 bg-gradient-to-br from-cyan-50 to-blue-50 rounded-xl flex items-center justify-center bus-icon">
+                                <i class="fas fa-bus text-3xl text-gray-400"></i>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-sm text-gray-600"><i class="fas fa-clock mr-1"></i>12 hrs</span>
+                            <span class="text-sm text-gray-600"><i class="fas fa-rupee-sign mr-1"></i>From ₹850</span>
+                        </div>
+                        <button
+                            class="w-full bg-gradient-to-r from-travel-dark to-travel-cyan text-white px-4 py-3 rounded-xl font-bold text-sm hover:shadow-xl transition-all duration-300 hover:scale-105">Book
+                            Now</button>
+                    </div>
+
+                    <div class="destination-card-marquee rounded-2xl p-6 inline-block min-w-[320px] shadow-lg">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-xl font-bold">Barmer To Bangalore</h3>
+                            <div
+                                class="w-14 h-14 bg-gradient-to-br from-cyan-50 to-blue-50 rounded-xl flex items-center justify-center bus-icon">
+                                <i class="fas fa-bus text-3xl text-gray-400"></i>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-sm text-gray-600"><i class="fas fa-clock mr-1"></i>18 hrs</span>
+                            <span class="text-sm text-gray-600"><i class="fas fa-rupee-sign mr-1"></i>From ₹1250</span>
+                        </div>
+                        <button
+                            class="w-full bg-gradient-to-r from-travel-dark to-travel-cyan text-white px-4 py-3 rounded-xl font-bold text-sm hover:shadow-xl transition-all duration-300 hover:scale-105">Book
+                            Now</button>
+                    </div>
+
+                    <div class="destination-card-marquee rounded-2xl p-6 inline-block min-w-[320px] shadow-lg">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-xl font-bold">Bangalore To Surat</h3>
+                            <div
+                                class="w-14 h-14 bg-gradient-to-br from-cyan-50 to-blue-50 rounded-xl flex items-center justify-center bus-icon">
+                                <i class="fas fa-bus text-3xl text-gray-400"></i>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-sm text-gray-600"><i class="fas fa-clock mr-1"></i>16 hrs</span>
+                            <span class="text-sm text-gray-600"><i class="fas fa-rupee-sign mr-1"></i>From ₹1100</span>
+                        </div>
+                        <button
+                            class="w-full bg-gradient-to-r from-travel-dark to-travel-cyan text-white px-4 py-3 rounded-xl font-bold text-sm hover:shadow-xl transition-all duration-300 hover:scale-105">Book
+                            Now</button>
+                    </div>
+
+                    <div class="destination-card-marquee rounded-2xl p-6 inline-block min-w-[320px] shadow-lg">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-xl font-bold">Biaora To Jaipur</h3>
+                            <div
+                                class="w-14 h-14 bg-gradient-to-br from-cyan-50 to-blue-50 rounded-xl flex items-center justify-center bus-icon">
+                                <i class="fas fa-bus text-3xl text-gray-400"></i>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-sm text-gray-600"><i class="fas fa-clock mr-1"></i>8 hrs</span>
+                            <span class="text-sm text-gray-600"><i class="fas fa-rupee-sign mr-1"></i>From ₹650</span>
+                        </div>
+                        <button
+                            class="w-full bg-gradient-to-r from-travel-dark to-travel-cyan text-white px-4 py-3 rounded-xl font-bold text-sm hover:shadow-xl transition-all duration-300 hover:scale-105">Book
+                            Now</button>
+                    </div>
+                </div>
+
+                <!-- Duplicate Set for seamless loop -->
+                <div class="flex gap-6">
+                    <div class="destination-card-marquee rounded-2xl p-6 inline-block min-w-[320px] shadow-lg">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-xl font-bold">Surat To Jaipur</h3>
+                            <div
+                                class="w-14 h-14 bg-gradient-to-br from-cyan-50 to-blue-50 rounded-xl flex items-center justify-center bus-icon">
+                                <i class="fas fa-bus text-3xl text-gray-400"></i>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-sm text-gray-600"><i class="fas fa-clock mr-1"></i>12 hrs</span>
+                            <span class="text-sm text-gray-600"><i class="fas fa-rupee-sign mr-1"></i>From ₹850</span>
+                        </div>
+                        <button
+                            class="w-full bg-gradient-to-r from-travel-dark to-travel-cyan text-white px-4 py-3 rounded-xl font-bold text-sm hover:shadow-xl transition-all duration-300 hover:scale-105">Book
+                            Now</button>
+                    </div>
+
+                    <div class="destination-card-marquee rounded-2xl p-6 inline-block min-w-[320px] shadow-lg">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-xl font-bold">Barmer To Bangalore</h3>
+                            <div
+                                class="w-14 h-14 bg-gradient-to-br from-cyan-50 to-blue-50 rounded-xl flex items-center justify-center bus-icon">
+                                <i class="fas fa-bus text-3xl text-gray-400"></i>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-sm text-gray-600"><i class="fas fa-clock mr-1"></i>18 hrs</span>
+                            <span class="text-sm text-gray-600"><i class="fas fa-rupee-sign mr-1"></i>From ₹1250</span>
+                        </div>
+                        <button
+                            class="w-full bg-gradient-to-r from-travel-dark to-travel-cyan text-white px-4 py-3 rounded-xl font-bold text-sm hover:shadow-xl transition-all duration-300 hover:scale-105">Book
+                            Now</button>
+                    </div>
+
+                    <div class="destination-card-marquee rounded-2xl p-6 inline-block min-w-[320px] shadow-lg">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-xl font-bold">Bangalore To Surat</h3>
+                            <div
+                                class="w-14 h-14 bg-gradient-to-br from-cyan-50 to-blue-50 rounded-xl flex items-center justify-center bus-icon">
+                                <i class="fas fa-bus text-3xl text-gray-400"></i>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-sm text-gray-600"><i class="fas fa-clock mr-1"></i>16 hrs</span>
+                            <span class="text-sm text-gray-600"><i class="fas fa-rupee-sign mr-1"></i>From ₹1100</span>
+                        </div>
+                        <button
+                            class="w-full bg-gradient-to-r from-travel-dark to-travel-cyan text-white px-4 py-3 rounded-xl font-bold text-sm hover:shadow-xl transition-all duration-300 hover:scale-105">Book
+                            Now</button>
+                    </div>
+
+                    <div class="destination-card-marquee rounded-2xl p-6 inline-block min-w-[320px] shadow-lg">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-xl font-bold">Biaora To Jaipur</h3>
+                            <div
+                                class="w-14 h-14 bg-gradient-to-br from-cyan-50 to-blue-50 rounded-xl flex items-center justify-center bus-icon">
+                                <i class="fas fa-bus text-3xl text-gray-400"></i>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-sm text-gray-600"><i class="fas fa-clock mr-1"></i>8 hrs</span>
+                            <span class="text-sm text-gray-600"><i class="fas fa-rupee-sign mr-1"></i>From ₹650</span>
+                        </div>
+                        <button
+                            class="w-full bg-gradient-to-r from-travel-dark to-travel-cyan text-white px-4 py-3 rounded-xl font-bold text-sm hover:shadow-xl transition-all duration-300 hover:scale-105">Book
+                            Now</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Us Section -->
+    <section class="py-16 relative"
+        style="background-image: url('https://mrtravelsonline.in/mrtravels/images/site/bannerbg.webp'); background-size: cover; background-position: center; background-attachment: fixed;">
+        <div class="absolute inset-0 bg-gradient-to-br from-white/95 via-white/90 to-purple-50/95"></div>
+
+        <div class="max-w-7xl mx-auto px-4 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <!-- Image Side -->
+                <div class="relative order-2 lg:order-1">
+                    <!-- Main Image -->
+                    <div class="relative">
+                        <div
+                            class="absolute inset-0 bg-gradient-to-br from-travel-dark/20 to-travel-orange/20 rounded-3xl transform rotate-3">
+                        </div>
+                        <img src="https://images.jdmagicbox.com/v2/comp/jodhpur/dc/0291px291.x291.1230720190p5h3y5.dc/catalogue/l-d-ramawat-tour-and-travels-masuria-jodhpur-bus-on-hire-tnhwivqbj6.jpg"
+                            alt="LD Ramawat Bus"
+                            class="relative z-10 w-full h-[500px] object-cover rounded-3xl shadow-2xl">
+
+                        <!-- Floating Badge (responsive position & size to avoid mobile overflow) -->
+                        <div class="absolute bottom-4 right-4 md:-bottom-6 md:-right-6 bg-white rounded-2xl shadow-xl p-3 md:p-4 z-20 transform md:translate-0">
+                            <div class="text-center">
+                                <div class="text-3xl md:text-4xl font-black text-travel-orange mb-1">63+</div>
+                                <div class="text-xs md:text-sm text-gray-600 font-semibold">Years Experience</div>
+                            </div>
+                        </div>
+
+                        <!-- Decorative Element -->
+                        <div
+                            class="absolute -top-6 -left-6 w-32 h-32 bg-gradient-to-br from-travel-orange to-travel-gold rounded-full opacity-20 blur-2xl">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Content Side -->
+                <div class="order-1 lg:order-2 space-y-6">
+                    <!-- Badge -->
+                    <div class="inline-flex items-center gap-2 bg-travel-dark/10 px-4 py-2 rounded-full">
+                        <span class="w-2 h-2 bg-travel-orange rounded-full"></span>
+                        <span class="text-sm font-bold text-travel-dark uppercase tracking-wide">About Our
+                            Company</span>
+                    </div>
+
+                    <!-- Heading -->
+                    <h2 class="text-4xl md:text-5xl font-black text-travel-dark leading-tight">
+                        Your Trusted <span class="text-travel-orange">Travel Partner</span> Since 1962
+                    </h2>
+
+                    <!-- Subtitle -->
+                    <p class="text-xl font-semibold text-travel-teal">
+                        ONLINE BUS BOOKING PLATFORM
+                    </p>
+
+                    <!-- Description -->
+                    <p class="text-gray-700 leading-relaxed text-lg">
+                        <span class="font-bold text-travel-dark">Shree LD.Ramawat Travels</span> acts as an integrator
+                        of travel industry in India by providing one-stop/end-to-end solutions for your every travel &
+                        comfort need. We are one of the pioneer players who have served more than a million passengers
+                        since inception.
+                    </p>
+
+                    <!-- Key Features -->
+                    <div class="space-y-4">
+                        <h4 class="font-bold text-travel-dark text-lg">Why Choose Us:</h4>
+                        <div class="grid grid-cols-1 gap-4">
+                            <div class="flex items-start gap-4 bg-white/60 backdrop-blur-sm p-2 rounded-xl">
+                                <div
+                                    class="w-12 h-12 bg-gradient-to-br from-travel-orange to-travel-dark rounded-xl flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-clock text-white text-xl"></i>
+                                </div>
+                                <div>
+                                    <h5 class="font-bold text-travel-dark mb-1">Convenient Booking</h5>
+                                    <p class="text-sm text-gray-600">Easy bus timings, booking, modification and
+                                        cancellation</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start gap-4 bg-white/60 backdrop-blur-sm p-2 rounded-xl">
+                                <div
+                                    class="w-12 h-12 bg-gradient-to-br from-travel-dark to-travel-teal rounded-xl flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-route text-white text-xl"></i>
+                                </div>
+                                <div>
+                                    <h5 class="font-bold text-travel-dark mb-1">End-to-End Connectivity</h5>
+                                    <p class="text-sm text-gray-600">Comprehensive routes with affordable fares</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start gap-4 bg-white/60 backdrop-blur-sm p-2 rounded-xl">
+                                <div
+                                    class="w-12 h-12 bg-gradient-to-br from-travel-orange to-travel-dark rounded-xl flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-bus text-white text-xl"></i>
+                                </div>
+                                <div>
+                                    <h5 class="font-bold text-travel-dark mb-1">Modern Fleet</h5>
+                                    <p class="text-sm text-gray-600">Latest, comfortable buses for ultimate comfort</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- CTA Button -->
+                    <a href="about.html"
+                        class="group relative inline-block px-6 py-2 bg-gradient-to-r from-travel-dark to-travel-teal text-white font-bold rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105">
+                        <span class="relative z-10 flex items-center gap-2">
+                            Learn More About Us
+                            <i class="fas fa-arrow-right group-hover:translate-x-2 transition-transform"></i>
+                        </span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Services Section -->
+    <section class="py-20 bg-gradient-to-br from-gray-50 via-white to-purple-50/30 relative overflow-hidden">
+        <!-- Background Decorative Elements -->
+        <div class="absolute top-0 right-0 w-96 h-96 bg-travel-orange/5 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-0 left-0 w-96 h-96 bg-travel-dark/5 rounded-full blur-3xl"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 relative z-10">
+            <!-- Header -->
+            <div class="text-center mb-16">
+                <div class="inline-flex items-center gap-2 bg-travel-dark/10 px-4 py-2 rounded-full mb-4">
+                    <span class="w-2 h-2 bg-travel-orange rounded-full animate-pulse"></span>
+                    <span class="text-sm font-bold text-travel-dark uppercase tracking-wide">What We Offer</span>
+                </div>
+                <h2 class="text-5xl md:text-6xl font-black text-travel-dark mb-4">
+                    Book smarter,<br/>
+                    <span class="text-travel-orange">travel better</span>
+                </h2>
+                <p class="text-gray-600 text-lg max-w-2xl mx-auto">Experience seamless booking with features designed for modern travelers</p>
+            </div>
+
+            <!-- Main Services Grid (responsive sizes for mobile) -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 mb-12">
+                <!-- Service 1 - Featured -->
+                <div class="group relative bg-gradient-to-br from-travel-orange to-travel-gold rounded-3xl p-6 md:p-8 text-white overflow-hidden hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
+                    <div class="absolute top-0 right-0 w-28 h-28 md:w-32 md:h-32 bg-white/10 rounded-full -mr-12 -mt-12 md:-mr-16 md:-mt-16"></div>
+                    <div class="absolute bottom-0 left-0 w-20 h-20 md:w-24 md:h-24 bg-white/5 rounded-full -ml-8 -mb-8 md:-ml-12 md:-mb-12"></div>
+                    
+                    <div class="relative z-10">
+                        <div class="w-12 h-12 md:w-16 md:h-16 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center mb-4 md:mb-6 group-hover:scale-110 transition-transform">
+                            <i class="fas fa-mobile-alt text-3xl md:text-4xl text-white"></i>
+                        </div>
+                        <h3 class="text-xl md:text-2xl font-black mb-2 md:mb-3">Paperless<br/>Ticketing</h3>
+                        <p class="text-white/90 mb-4 md:mb-6 text-sm md:text-base">Get instant e-tickets directly to your mobile. No printing, no hassle. Just show and go.</p>
+                        <div class="flex items-center gap-2 text-sm font-bold">
+                            <span>Learn more</span>
+                            <i class="fas fa-arrow-right group-hover:translate-x-2 transition-transform"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Service 2 -->
+                <div class="group bg-white rounded-3xl p-6 md:p-8 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border-2 border-transparent hover:border-travel-dark/10">
+                    <div class="w-12 h-12 md:w-16 md:h-16 bg-gradient-to-br from-travel-dark/10 to-travel-teal/10 rounded-2xl flex items-center justify-center mb-4 md:mb-6 group-hover:scale-110 transition-transform">
+                        <i class="fas fa-bolt text-3xl md:text-4xl text-travel-dark"></i>
+                    </div>
+                    <h3 class="text-xl md:text-2xl font-black text-travel-dark mb-2 md:mb-3">Fast & Secure<br/>Booking</h3>
+                    <p class="text-gray-600 mb-4 md:mb-6 text-sm md:text-base">Book your seats in under 60 seconds with our lightning-fast booking system.</p>
+                    <div class="flex items-center gap-3">
+                        <div class="flex-1 bg-gray-100 rounded-full h-2">
+                            <div class="bg-gradient-to-r from-travel-dark to-travel-teal h-2 rounded-full" style="width: 95%"></div>
+                        </div>
+                        <span class="text-sm font-bold text-travel-dark">95% faster</span>
+                    </div>
+                </div>
+
+                <!-- Service 3 -->
+                <div class="group bg-white rounded-3xl p-6 md:p-8 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border-2 border-transparent hover:border-travel-orange/10">
+                    <div class="w-12 h-12 md:w-16 md:h-16 bg-gradient-to-br from-travel-orange/10 to-travel-gold/10 rounded-2xl flex items-center justify-center mb-4 md:mb-6 group-hover:scale-110 transition-transform">
+                        <i class="fas fa-credit-card text-3xl md:text-4xl text-travel-orange"></i>
+                    </div>
+                    <h3 class="text-xl md:text-2xl font-black text-travel-dark mb-2 md:mb-3">Multiple<br/>Payment Options</h3>
+                    <p class="text-gray-600 mb-4 text-sm md:mb-4 md:text-base">Pay your way with credit cards, UPI, wallets, and net banking.</p>
+                    <div class="flex gap-2 flex-wrap">
+                        <span class="px-3 py-1 bg-gray-100 rounded-full text-xs font-semibold text-gray-700">UPI</span>
+                        <span class="px-3 py-1 bg-gray-100 rounded-full text-xs font-semibold text-gray-700">Cards</span>
+                        <span class="px-3 py-1 bg-gray-100 rounded-full text-xs font-semibold text-gray-700">Wallets</span>
+                        <span class="px-3 py-1 bg-gray-100 rounded-full text-xs font-semibold text-gray-700">Net Banking</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Secondary Services Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Service 4 -->
+                <div class="group bg-white/60 backdrop-blur-sm rounded-2xl p-6 hover:bg-white transition-all duration-300 hover:shadow-lg border border-gray-100">
+                    <div class="flex items-start gap-4">
+                        <div class="w-12 h-12 bg-gradient-to-br from-travel-teal/20 to-travel-cyan/20 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                            <i class="fas fa-undo text-2xl text-travel-teal"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-black text-travel-dark mb-2">Easy Cancellation</h3>
+                            <p class="text-gray-600 text-sm">Cancel or reschedule bookings online with instant refunds.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Service 5 -->
+                <div class="group bg-white/60 backdrop-blur-sm rounded-2xl p-6 hover:bg-white transition-all duration-300 hover:shadow-lg border border-gray-100">
+                    <div class="flex items-start gap-4">
+                        <div class="w-12 h-12 bg-gradient-to-br from-travel-dark/20 to-travel-orange/20 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                            <i class="fas fa-headset text-2xl text-travel-dark"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-black text-travel-dark mb-2">24/7 Support</h3>
+                            <p class="text-gray-600 text-sm">Round-the-clock customer assistance via phone and chat.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Service 6 -->
+                <div class="group bg-white/60 backdrop-blur-sm rounded-2xl p-6 hover:bg-white transition-all duration-300 hover:shadow-lg border border-gray-100">
+                    <div class="flex items-start gap-4">
+                        <div class="w-12 h-12 bg-gradient-to-br from-travel-gold/20 to-travel-orange/20 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                            <i class="fas fa-shield-alt text-2xl text-travel-gold"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-black text-travel-dark mb-2">100% Secure</h3>
+                            <p class="text-gray-600 text-sm">Bank-level encryption keeps your data safe and protected.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stats Section -->
+            <div class="mt-16 bg-gradient-to-r from-travel-dark to-travel-teal rounded-3xl p-8 md:p-12">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                    <div class="text-center">
+                        <div class="text-4xl md:text-5xl font-black text-white mb-2">1M+</div>
+                        <div class="text-white/80 text-sm font-semibold">Happy Travelers</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-4xl md:text-5xl font-black text-white mb-2">500+</div>
+                        <div class="text-white/80 text-sm font-semibold">Routes Covered</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-4xl md:text-5xl font-black text-white mb-2">200+</div>
+                        <div class="text-white/80 text-sm font-semibold">Modern Buses</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-4xl md:text-5xl font-black text-white mb-2">4.8</div>
+                        <div class="text-white/80 text-sm font-semibold">Customer Rating</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Amenities Section -->
+    <section class="py-12 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center mb-8">
+                <h2 class="text-4xl font-black text-travel-dark">
+                    Our <span class="text-travel-cyan">AMENITIES</span>
+                </h2>
+            </div>
+
+            <!-- Amenities Grid (converted from Swiper to static responsive grid) -->
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4 md:gap-6">
+                <div class="bg-white rounded-xl p-4 md:p-8 text-center">
+                    <div class="w-12 h-12 md:w-16 md:h-16 bg-gray-100 rounded-xl flex items-center justify-center mx-auto mb-3 md:mb-4 transform rotate-45">
+                        <i class="fas fa-tv text-2xl md:text-3xl text-travel-cyan transform -rotate-45"></i>
+                    </div>
+                    <h3 class="text-sm md:text-lg font-bold text-travel-cyan">Television (TV)</h3>
+                </div>
+
+                <div class="bg-white rounded-xl p-4 md:p-8 text-center">
+                    <div class="w-12 h-12 md:w-16 md:h-16 bg-gray-100 rounded-xl flex items-center justify-center mx-auto mb-3 md:mb-4 transform rotate-45">
+                        <i class="fas fa-blanket text-2xl md:text-3xl text-gray-700 transform -rotate-45"></i>
+                    </div>
+                    <h3 class="text-sm md:text-lg font-bold">Blanket</h3>
+                </div>
+
+                <div class="bg-white rounded-xl p-4 md:p-8 text-center">
+                    <div class="w-12 h-12 md:w-16 md:h-16 bg-gray-100 rounded-xl flex items-center justify-center mx-auto mb-3 md:mb-4 transform rotate-45">
+                        <i class="fas fa-door-open text-2xl md:text-3xl text-gray-700 transform -rotate-45"></i>
+                    </div>
+                    <h3 class="text-sm md:text-lg font-bold">Emergency Exit</h3>
+                </div>
+
+                <div class="bg-white rounded-xl p-4 md:p-8 text-center">
+                    <div class="w-12 h-12 md:w-16 md:h-16 bg-gray-100 rounded-xl flex items-center justify-center mx-auto mb-3 md:mb-4 transform rotate-45">
+                        <i class="fas fa-bottle-water text-2xl md:text-3xl text-gray-700 transform -rotate-45"></i>
+                    </div>
+                    <h3 class="text-sm md:text-lg font-bold">Water Bottle</h3>
+                </div>
+
+                <div class="bg-white rounded-xl p-4 md:p-8 text-center">
+                    <div class="w-12 h-12 md:w-16 md:h-16 bg-gray-100 rounded-xl flex items-center justify-center mx-auto mb-3 md:mb-4 transform rotate-45">
+                        <i class="fas fa-wifi text-2xl md:text-3xl text-gray-700 transform -rotate-45"></i>
+                    </div>
+                    <h3 class="text-sm md:text-lg font-bold">WiFi</h3>
+                </div>
+
+                <div class="bg-white rounded-xl p-4 md:p-8 text-center">
+                    <div class="w-12 h-12 md:w-16 md:h-16 bg-gray-100 rounded-xl flex items-center justify-center mx-auto mb-3 md:mb-4 transform rotate-45">
+                        <i class="fas fa-snowflake text-2xl md:text-3xl text-gray-700 transform -rotate-45"></i>
+                    </div>
+                    <h3 class="text-sm md:text-lg font-bold">AC</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="py-12 md:py-20 bg-white relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-96 h-96 bg-travel-teal/5 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-0 right-0 w-96 h-96 bg-travel-orange/5 rounded-full blur-3xl"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 relative z-10">
+            <div class="text-center mb-8 md:mb-16">
+                <div class="inline-flex items-center gap-2 bg-travel-orange/10 px-4 py-2 rounded-full mb-4">
+                    <span class="w-2 h-2 bg-travel-orange rounded-full animate-pulse"></span>
+                    <span class="text-sm font-bold text-travel-dark uppercase tracking-wide">Simple Process</span>
+                </div>
+                <h2 class="text-3xl md:text-5xl lg:text-6xl font-black text-travel-dark mb-3 md:mb-4">
+                    Book your journey in<br/>
+                    <span class="text-travel-orange">3 easy steps</span>
+                </h2>
+                <p class="text-gray-600 text-base md:text-lg max-w-2xl mx-auto">Travel planning made effortless with our streamlined booking system</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 relative">
+                <!-- Connecting Line (Desktop Only) -->
+                <div class="hidden md:block absolute top-24 left-0 right-0 h-1 bg-gradient-to-r from-travel-orange via-travel-dark to-travel-teal mx-32"></div>
+                
+                <!-- Step 1 -->
+                <div class="relative group">
+                    <div class="bg-gradient-to-br from-white to-gray-50 rounded-2xl md:rounded-3xl p-6 md:p-8 border-2 border-gray-100 hover:border-travel-orange transition-all duration-500 hover:shadow-2xl hover:-translate-y-2">
+                        <div class="flex md:flex-col items-center md:items-center gap-4 md:gap-0">
+                            <div class="w-12 h-12 md:w-16 md:h-16 bg-gradient-to-br from-travel-orange to-travel-gold rounded-xl md:rounded-2xl flex items-center justify-center md:mb-6 relative z-10 group-hover:scale-110 transition-transform flex-shrink-0">
+                                <span class="text-2xl md:text-3xl font-black text-white">1</span>
+                            </div>
+                            <div class="flex-1 md:text-center">
+                                <div class="hidden md:flex w-20 h-20 bg-travel-orange/10 rounded-full items-center justify-center mx-auto mb-6">
+                                    <i class="fas fa-search text-4xl text-travel-orange"></i>
+                                </div>
+                                <div class="flex md:hidden items-center gap-3 mb-2">
+                                    <div class="w-10 h-10 bg-travel-orange/10 rounded-full flex items-center justify-center">
+                                        <i class="fas fa-search text-xl text-travel-orange"></i>
+                                    </div>
+                                    <h3 class="text-xl font-black text-travel-dark">Search Routes</h3>
+                                </div>
+                                <h3 class="hidden md:block text-2xl font-black text-travel-dark mb-4">Search Routes</h3>
+                                <p class="text-gray-600 leading-relaxed text-sm md:text-base">Enter your source and destination to find available buses with real-time seat availability.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="relative group">
+                    <div class="bg-gradient-to-br from-white to-gray-50 rounded-2xl md:rounded-3xl p-6 md:p-8 border-2 border-gray-100 hover:border-travel-dark transition-all duration-500 hover:shadow-2xl hover:-translate-y-2">
+                        <div class="flex md:flex-col items-center md:items-center gap-4 md:gap-0">
+                            <div class="w-12 h-12 md:w-16 md:h-16 bg-gradient-to-br from-travel-dark to-travel-teal rounded-xl md:rounded-2xl flex items-center justify-center md:mb-6 relative z-10 group-hover:scale-110 transition-transform flex-shrink-0">
+                                <span class="text-2xl md:text-3xl font-black text-white">2</span>
+                            </div>
+                            <div class="flex-1 md:text-center">
+                                <div class="hidden md:flex w-20 h-20 bg-travel-dark/10 rounded-full items-center justify-center mx-auto mb-6">
+                                    <i class="fas fa-chair text-4xl text-travel-dark"></i>
+                                </div>
+                                <div class="flex md:hidden items-center gap-3 mb-2">
+                                    <div class="w-10 h-10 bg-travel-dark/10 rounded-full flex items-center justify-center">
+                                        <i class="fas fa-chair text-xl text-travel-dark"></i>
+                                    </div>
+                                    <h3 class="text-xl font-black text-travel-dark">Select Seats</h3>
+                                </div>
+                                <h3 class="hidden md:block text-2xl font-black text-travel-dark mb-4">Select Seats</h3>
+                                <p class="text-gray-600 leading-relaxed text-sm md:text-base">Choose your preferred seats from our interactive seating layout and add passenger details.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="relative group">
+                    <div class="bg-gradient-to-br from-white to-gray-50 rounded-2xl md:rounded-3xl p-6 md:p-8 border-2 border-gray-100 hover:border-travel-teal transition-all duration-500 hover:shadow-2xl hover:-translate-y-2">
+                        <div class="flex md:flex-col items-center md:items-center gap-4 md:gap-0">
+                            <div class="w-12 h-12 md:w-16 md:h-16 bg-gradient-to-br from-travel-teal to-travel-cyan rounded-xl md:rounded-2xl flex items-center justify-center md:mb-6 relative z-10 group-hover:scale-110 transition-transform flex-shrink-0">
+                                <span class="text-2xl md:text-3xl font-black text-white">3</span>
+                            </div>
+                            <div class="flex-1 md:text-center">
+                                <div class="hidden md:flex w-20 h-20 bg-travel-teal/10 rounded-full items-center justify-center mx-auto mb-6">
+                                    <i class="fas fa-check-circle text-4xl text-travel-teal"></i>
+                                </div>
+                                <div class="flex md:hidden items-center gap-3 mb-2">
+                                    <div class="w-10 h-10 bg-travel-teal/10 rounded-full flex items-center justify-center">
+                                        <i class="fas fa-check-circle text-xl text-travel-teal"></i>
+                                    </div>
+                                    <h3 class="text-xl font-black text-travel-dark">Book & Travel</h3>
+                                </div>
+                                <h3 class="hidden md:block text-2xl font-black text-travel-dark mb-4">Book & Travel</h3>
+                                <p class="text-gray-600 leading-relaxed text-sm md:text-base">Complete payment securely and receive instant e-ticket on your mobile. Ready to go!</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-8 md:mt-12">
+                <a href="booking.html" class="inline-block bg-gradient-to-r from-travel-orange to-travel-gold text-white px-6 md:px-8 py-3 md:py-4 rounded-xl md:rounded-2xl font-black text-base md:text-lg hover:shadow-2xl transition-all duration-300 hover:scale-105">
+                    Start Booking Now <i class="fas fa-arrow-right ml-2"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Customer Testimonials Section -->
+    <section class="py-20 bg-gradient-to-br from-gray-50 to-blue-50/30">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center mb-16">
+                <div class="inline-flex items-center gap-2 bg-travel-dark/10 px-4 py-2 rounded-full mb-4">
+                    <span class="w-2 h-2 bg-travel-orange rounded-full animate-pulse"></span>
+                    <span class="text-sm font-bold text-travel-dark uppercase tracking-wide">Testimonials</span>
+                </div>
+                <h2 class="text-3xl md:text-5xl lg:text-6xl font-black text-travel-dark mb-4">
+                    What our travelers<br/>
+                    <span class="text-travel-orange">say about us</span>
+                </h2>
+                <div class="flex items-center justify-center gap-2 mt-6">
+                    <div class="flex gap-1">
+                        <i class="fas fa-star text-yellow-500 text-2xl"></i>
+                        <i class="fas fa-star text-yellow-500 text-2xl"></i>
+                        <i class="fas fa-star text-yellow-500 text-2xl"></i>
+                        <i class="fas fa-star text-yellow-500 text-2xl"></i>
+                        <i class="fas fa-star-half-alt text-yellow-500 text-2xl"></i>
+                    </div>
+                    <span class="text-2xl font-black text-travel-dark ml-2">4.8/5</span>
+                    <span class="text-gray-600 ml-2">(12,000+ reviews)</span>
+                </div>
+            </div>
+
+            <!-- Testimonials Swiper -->
+            <div class="swiper testimonialsSwiper">
+                <div class="swiper-wrapper">
+                    <!-- Testimonial 1 -->
+                    <div class="swiper-slide">
+                        <div class="bg-white rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300">
+                            <div class="flex gap-1 mb-4">
+                                <i class="fas fa-star text-yellow-500"></i>
+                                <i class="fas fa-star text-yellow-500"></i>
+                                <i class="fas fa-star text-yellow-500"></i>
+                                <i class="fas fa-star text-yellow-500"></i>
+                                <i class="fas fa-star text-yellow-500"></i>
+                            </div>
+                            <p class="text-gray-700 italic mb-6 leading-relaxed">"Exceptional service! The bus was on time, clean, and comfortable. The online booking process was smooth and hassle-free. Highly recommend for long-distance travel."</p>
+                            <div class="flex items-center gap-4">
+                                <div class="w-14 h-14 bg-gradient-to-br from-travel-orange to-travel-gold rounded-full flex items-center justify-center">
+                                    <span class="text-white font-black text-xl">RS</span>
+                                </div>
+                                <div>
+                                    <h4 class="font-black text-travel-dark">Rajesh Sharma</h4>
+                                    <p class="text-sm text-gray-600">Business Traveler</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Testimonial 2 -->
+                    <div class="swiper-slide">
+                        <div class="bg-white rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300">
+                            <div class="flex gap-1 mb-4">
+                                <i class="fas fa-star text-yellow-500"></i>
+                                <i class="fas fa-star text-yellow-500"></i>
+                                <i class="fas fa-star text-yellow-500"></i>
+                                <i class="fas fa-star text-yellow-500"></i>
+                                <i class="fas fa-star text-yellow-500"></i>
+                            </div>
+                            <p class="text-gray-700 italic mb-6 leading-relaxed">"Best travel experience with my family. The staff was courteous, and amenities like AC and WiFi made our journey pleasant. Will definitely book again!"</p>
+                            <div class="flex items-center gap-4">
+                                <div class="w-14 h-14 bg-gradient-to-br from-travel-dark to-travel-teal rounded-full flex items-center justify-center">
+                                    <span class="text-white font-black text-xl">PM</span>
+                                </div>
+                                <div>
+                                    <h4 class="font-black text-travel-dark">Priya Mehta</h4>
+                                    <p class="text-sm text-gray-600">Family Traveler</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Testimonial 3 -->
+                    <div class="swiper-slide">
+                        <div class="bg-white rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300">
+                            <div class="flex gap-1 mb-4">
+                                <i class="fas fa-star text-yellow-500"></i>
+                                <i class="fas fa-star text-yellow-500"></i>
+                                <i class="fas fa-star text-yellow-500"></i>
+                                <i class="fas fa-star text-yellow-500"></i>
+                                <i class="fas fa-star text-gray-300"></i>
+                            </div>
+                            <p class="text-gray-700 italic mb-6 leading-relaxed">"Reliable and affordable service. The GPS tracking feature helped me plan my pickup perfectly. Customer support was responsive when I had questions."</p>
+                            <div class="flex items-center gap-4">
+                                <div class="w-14 h-14 bg-gradient-to-br from-travel-teal to-travel-cyan rounded-full flex items-center justify-center">
+                                    <span class="text-white font-black text-xl">AK</span>
+                                </div>
+                                <div>
+                                    <h4 class="font-black text-travel-dark">Amit Kumar</h4>
+                                    <p class="text-sm text-gray-600">Regular Commuter</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Testimonial 4 -->
+                    <div class="swiper-slide">
+                        <div class="bg-white rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300">
+                            <div class="flex gap-1 mb-4">
+                                <i class="fas fa-star text-yellow-500"></i>
+                                <i class="fas fa-star text-yellow-500"></i>
+                                <i class="fas fa-star text-yellow-500"></i>
+                                <i class="fas fa-star text-yellow-500"></i>
+                                <i class="fas fa-star text-yellow-500"></i>
+                            </div>
+                            <p class="text-gray-700 italic mb-6 leading-relaxed">"Outstanding experience from start to finish! Clean buses, punctual service, and professional drivers. This is now my go-to travel service!"</p>
+                            <div class="flex items-center gap-4">
+                                <div class="w-14 h-14 bg-gradient-to-br from-travel-gold to-travel-orange rounded-full flex items-center justify-center">
+                                    <span class="text-white font-black text-xl">SK</span>
+                                </div>
+                                <div>
+                                    <h4 class="font-black text-travel-dark">Sneha Kapoor</h4>
+                                    <p class="text-sm text-gray-600">Solo Traveler</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Pagination -->
+                <div class="swiper-pagination mt-12"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us -->
+    <section class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl md:text-5xl font-black text-travel-dark mb-4">
+                    Why Choose <span class="text-travel-orange">Us</span>
+                </h2>
+                <p class="text-gray-600 text-lg">Experience the difference with Shree LD.Ramawat Travels</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="flex items-start gap-4 bg-gray-50 p-6 rounded-xl hover:shadow-lg transition-all">
+                    <div class="w-12 h-12 bg-gradient-to-br from-travel-orange to-travel-gold rounded-xl flex items-center justify-center flex-shrink-0">
+                        <i class="fas fa-clock text-white text-xl"></i>
+                    </div>
+                    <div>
+                        <h5 class="font-bold text-travel-dark mb-2 text-lg">Convenient Booking</h5>
+                        <p class="text-sm text-gray-600">Easy bus timings, booking, modification and cancellation</p>
+                    </div>
+                </div>
+
+                <div class="flex items-start gap-4 bg-gray-50 p-6 rounded-xl hover:shadow-lg transition-all">
+                    <div class="w-12 h-12 bg-gradient-to-br from-travel-dark to-travel-teal rounded-xl flex items-center justify-center flex-shrink-0">
+                        <i class="fas fa-route text-white text-xl"></i>
+                    </div>
+                    <div>
+                        <h5 class="font-bold text-travel-dark mb-2 text-lg">End-to-End Connectivity</h5>
+                        <p class="text-sm text-gray-600">Comprehensive routes with affordable fares</p>
+                    </div>
+                </div>
+
+                <div class="flex items-start gap-4 bg-gray-50 p-6 rounded-xl hover:shadow-lg transition-all">
+                    <div class="w-12 h-12 bg-gradient-to-br from-travel-orange to-travel-dark rounded-xl flex items-center justify-center flex-shrink-0">
+                        <i class="fas fa-bus text-white text-xl"></i>
+                    </div>
+                    <div>
+                        <h5 class="font-bold text-travel-dark mb-2 text-lg">Modern Fleet</h5>
+                        <p class="text-sm text-gray-600">Latest, comfortable buses for ultimate comfort</p>
+                    </div>
+                </div>
+
+                <div class="flex items-start gap-4 bg-gray-50 p-6 rounded-xl hover:shadow-lg transition-all">
+                    <div class="w-12 h-12 bg-gradient-to-br from-travel-teal to-travel-gold rounded-xl flex items-center justify-center flex-shrink-0">
+                        <i class="fas fa-headset text-white text-xl"></i>
+                    </div>
+                    <div>
+                        <h5 class="font-bold text-travel-dark mb-2 text-lg">24/7 Support</h5>
+                        <p class="text-sm text-gray-600">Round-the-clock customer service for your assistance</p>
+                    </div>
+                </div>
+
+                <div class="flex items-start gap-4 bg-gray-50 p-6 rounded-xl hover:shadow-lg transition-all">
+                    <div class="w-12 h-12 bg-gradient-to-br from-travel-orange to-travel-teal rounded-xl flex items-center justify-center flex-shrink-0">
+                        <i class="fas fa-tag text-white text-xl"></i>
+                    </div>
+                    <div>
+                        <h5 class="font-bold text-travel-dark mb-2 text-lg">Best Prices</h5>
+                        <p class="text-sm text-gray-600">Competitive pricing with regular offers and discounts</p>
+                    </div>
+                </div>
+
+                <div class="flex items-start gap-4 bg-gray-50 p-6 rounded-xl hover:shadow-lg transition-all">
+                    <div class="w-12 h-12 bg-gradient-to-br from-travel-dark to-travel-gold rounded-xl flex items-center justify-center flex-shrink-0">
+                        <i class="fas fa-users text-white text-xl"></i>
+                    </div>
+                    <div>
+                        <h5 class="font-bold text-travel-dark mb-2 text-lg">Experienced Team</h5>
+                        <p class="text-sm text-gray-600">Professional staff with decades of industry experience</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="py-12 bg-white">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center mb-8">
+                <h2 class="text-4xl font-black text-travel-dark">
+                    Our <span class="text-travel-cyan">GALLERY</span>
+                </h2>
+                <p class="text-gray-600 mt-2">Explore our fleet and travel experiences</p>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="gallery-img overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=300&h=300&fit=crop"
+                        alt="Bus 1" class="w-full h-48 object-cover hover:scale-110 transition-transform duration-500">
+                </div>
+                <div class="gallery-img overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1570125909232-eb263c188f7e?w=300&h=300&fit=crop"
+                        alt="Bus 2" class="w-full h-48 object-cover hover:scale-110 transition-transform duration-500">
+                </div>
+                <div class="gallery-img overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=300&h=300&fit=crop"
+                        alt="Bus 3" class="w-full h-48 object-cover hover:scale-110 transition-transform duration-500">
+                </div>
+                <div class="gallery-img overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1570125909517-53cb21c89ff2?w=300&h=300&fit=crop"
+                        alt="Bus 4" class="w-full h-48 object-cover hover:scale-110 transition-transform duration-500">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Subscription Section -->
+    <section class="py-6 mb-8 bg-gradient-to-br from-travel-dark via-travel-teal to-travel-dark relative overflow-hidden">
+        <!-- Animated Background Elements -->
+        <div class="absolute inset-0 opacity-10">
+            <div class="absolute top-5 left-5 w-40 h-40 bg-white rounded-full blur-3xl animate-pulse"></div>
+            <div class="absolute bottom-5 right-5 w-48 h-48 bg-travel-orange rounded-full blur-3xl animate-pulse" style="animation-delay: 1.5s;"></div>
+        </div>
+        
+        <div class="max-w-7xl mx-auto px-4 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                <!-- Left Column - Heading & Info -->
+                <div>
+                    <div class="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm px-3 py-1.5 rounded-full mb-3">
+                        <i class="fas fa-bell text-travel-orange text-sm"></i>
+                        <span class="text-white text-xs font-bold uppercase tracking-wide">Stay Updated</span>
+                    </div>
+                    
+                    <h2 class="text-3xl md:text-4xl font-black text-white mb-3">
+                        Get Travel Deals<br/>
+                        <span class="text-travel-orange">Straight to Your Inbox!</span>
+                    </h2>
+                    
+                    <p class="text-white/80 text-sm mb-4">
+                        Join thousands of travelers receiving exclusive offers, route updates, and travel tips weekly.
+                    </p>
+                    
+                    <!-- Features List -->
+                    <div class="space-y-2">
+                        <div class="flex items-center gap-2 text-white/90">
+                            <div class="w-5 h-5 bg-travel-orange/20 rounded-full flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-check text-travel-orange text-xs"></i>
+                            </div>
+                            <span class="text-xs">Exclusive discount codes up to 30% off</span>
+                        </div>
+                        <div class="flex items-center gap-2 text-white/90">
+                            <div class="w-5 h-5 bg-travel-orange/20 rounded-full flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-check text-travel-orange text-xs"></i>
+                            </div>
+                            <span class="text-xs">Early access to new routes & services</span>
+                        </div>
+                        <div class="flex items-center gap-2 text-white/90">
+                            <div class="w-5 h-5 bg-travel-orange/20 rounded-full flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-check text-travel-orange text-xs"></i>
+                            </div>
+                            <span class="text-xs">Weekly travel tips & destination guides</span>
+                        </div>
+                        <div class="flex items-center gap-2 text-white/90">
+                            <div class="w-5 h-5 bg-travel-orange/20 rounded-full flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-check text-travel-orange text-xs"></i>
+                            </div>
+                            <span class="text-xs">No spam, unsubscribe anytime</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Trust Badges -->
+                    <div class="flex items-center gap-4 mt-4">
+                        <div class="flex items-center gap-1.5 text-white/70">
+                            <i class="fas fa-users text-travel-orange text-sm"></i>
+                            <span class="text-xs font-semibold">15K+ Subscribers</span>
+                        </div>
+                        <div class="flex items-center gap-1.5 text-white/70">
+                            <i class="fas fa-shield-alt text-travel-orange text-sm"></i>
+                            <span class="text-xs font-semibold">100% Secure</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Right Column - Form -->
+                <div class="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20">
+                    <form class="space-y-3">
+                        <!-- Name Input -->
+                        <div class="relative">
+                            <label class="text-white text-xs font-semibold mb-1.5 block">Full Name</label>
+                            <div class="relative">
+                                <i class="fas fa-user absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 text-sm"></i>
+                                <input 
+                                    type="text" 
+                                    placeholder="Enter your name" 
+                                    class="w-full pl-10 pr-3 py-2.5 rounded-lg bg-white/90 text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-travel-orange transition-all text-sm"
+                                    required
+                                >
+                            </div>
+                        </div>
+                        
+                        <!-- Email Input -->
+                        <div class="relative">
+                            <label class="text-white text-xs font-semibold mb-1.5 block">Email Address</label>
+                            <div class="relative">
+                                <i class="fas fa-envelope absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 text-sm"></i>
+                                <input 
+                                    type="email" 
+                                    placeholder="your@email.com" 
+                                    class="w-full pl-10 pr-3 py-2.5 rounded-lg bg-white/90 text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-travel-orange transition-all text-sm"
+                                    required
+                                >
+                            </div>
+                        </div>
+                        
+                        <!-- Phone Input (Optional) -->
+                        <div class="relative">
+                            <label class="text-white text-xs font-semibold mb-1.5 block">
+                                Phone Number <span class="text-white/60">(Optional)</span>
+                            </label>
+                            <div class="relative">
+                                <i class="fas fa-phone absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 text-sm"></i>
+                                <input 
+                                    type="tel" 
+                                    placeholder="+91 xxxxx xxxxx" 
+                                    class="w-full pl-10 pr-3 py-2.5 rounded-lg bg-white/90 text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-travel-orange transition-all text-sm"
+                                >
+                            </div>
+                        </div>
+                        
+                        <!-- Checkbox -->
+                        <div class="flex items-start gap-2">
+                            <input 
+                                type="checkbox" 
+                                id="terms" 
+                                class="mt-0.5 w-4 h-4 text-travel-orange focus:ring-travel-orange border-gray-300 rounded"
+                                required
+                            >
+                            <label for="terms" class="text-white/80 text-xs">
+                                I agree to receive promotional emails and accept the <a href="#" class="text-travel-orange hover:underline">privacy policy</a>
+                            </label>
+                        </div>
+                        
+                        <!-- Submit Button -->
+                        <button 
+                            type="submit" 
+                            class="w-full bg-gradient-to-r from-travel-orange to-travel-gold text-white font-bold py-3 rounded-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02] flex items-center justify-center gap-2 text-sm mt-4"
+                        >
+                            <i class="fas fa-paper-plane"></i>
+                            <span>Subscribe Now - It's Free!</span>
+                        </button>
+                        
+                        <p class="text-white/60 text-xs text-center mt-3">
+                            <i class="fas fa-lock mr-1"></i>Your information is safe with us
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white pt-16 pb-8 relative overflow-hidden">
+        <!-- Animated Gradient Background -->
+        <div class="absolute inset-0 bg-gradient-to-br from-gray-900 via-slate-800 to-gray-900"></div>
+        
+        <!-- Decorative Elements with Animation -->
+        <div class="absolute top-0 left-0 w-96 h-96 bg-travel-orange/10 rounded-full blur-3xl animate-pulse"></div>
+        <div class="absolute bottom-0 right-0 w-96 h-96 bg-travel-teal/10 rounded-full blur-3xl animate-pulse" style="animation-delay: 1.5s;"></div>
+        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-gradient-to-r from-travel-orange/5 to-travel-teal/5 rounded-full blur-3xl"></div>
+        
+        <!-- Dot Pattern Overlay -->
+        <div class="absolute inset-0 opacity-5" style="background-image: radial-gradient(circle, #ffffff 1px, transparent 1px); background-size: 30px 30px;"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 relative z-10">
+            <!-- Main Footer Content -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+                <!-- Company Info -->
+                <div class="lg:col-span-1">
+                    <div class="flex items-center gap-3 mb-4 bg-white/5 backdrop-blur-sm p-3 rounded-xl border border-white/10">
+                        <div class="w-14 h-14 bg-gradient-to-br from-travel-orange to-travel-gold rounded-xl flex items-center justify-center shadow-lg">
+                            <span class="text-white text-2xl font-black">LD</span>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-black text-white drop-shadow-lg">Shree LD.Ramawat</h3>
+                            <p class="text-xs text-travel-orange font-semibold">TRAVELS</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 text-sm mb-6 leading-relaxed">Your trusted travel partner since 1962. Connecting destinations with comfort and reliability.</p>
+                    
+                    <!-- Social Links -->
+                    <div class="flex gap-3">
+                        <a href="#" class="w-10 h-10 bg-gradient-to-br from-white/10 to-white/5 hover:from-travel-orange hover:to-travel-gold rounded-lg flex items-center justify-center transition-all duration-300 hover:scale-110 border border-white/10">
+                            <i class="fab fa-facebook text-lg text-white"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-gradient-to-br from-white/10 to-white/5 hover:from-travel-orange hover:to-travel-gold rounded-lg flex items-center justify-center transition-all duration-300 hover:scale-110 border border-white/10">
+                            <i class="fab fa-instagram text-lg text-white"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-gradient-to-br from-white/10 to-white/5 hover:from-travel-orange hover:to-travel-gold rounded-lg flex items-center justify-center transition-all duration-300 hover:scale-110 border border-white/10">
+                            <i class="fab fa-twitter text-lg text-white"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-gradient-to-br from-white/10 to-white/5 hover:from-travel-orange hover:to-travel-gold rounded-lg flex items-center justify-center transition-all duration-300 hover:scale-110 border border-white/10">
+                            <i class="fab fa-linkedin text-lg text-white"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="text-lg font-black text-white mb-6 relative inline-block">
+                        Quick Links
+                        <span class="absolute bottom-0 left-0 w-12 h-1 bg-gradient-to-r from-travel-orange to-travel-gold rounded-full"></span>
+                    </h4>
+                    <ul class="space-y-3">
+                        <li>
+                            <a href="index.html" class="text-gray-300 hover:text-travel-orange transition-colors duration-300 flex items-center gap-2 group">
+                                <i class="fas fa-chevron-right text-xs text-travel-orange group-hover:translate-x-1 transition-transform"></i>
+                                <span>Home</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="packages.html" class="text-gray-300 hover:text-travel-orange transition-colors duration-300 flex items-center gap-2 group">
+                                <i class="fas fa-chevron-right text-xs text-travel-orange group-hover:translate-x-1 transition-transform"></i>
+                                <span>Tour Packages</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="about.html" class="text-gray-300 hover:text-travel-orange transition-colors duration-300 flex items-center gap-2 group">
+                                <i class="fas fa-chevron-right text-xs text-travel-orange group-hover:translate-x-1 transition-transform"></i>
+                                <span>About Us</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="contact.html" class="text-gray-300 hover:text-travel-orange transition-colors duration-300 flex items-center gap-2 group">
+                                <i class="fas fa-chevron-right text-xs text-travel-orange group-hover:translate-x-1 transition-transform"></i>
+                                <span>Contact</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Popular Routes -->
+                <div>
+                    <h4 class="text-lg font-black text-white mb-6 relative inline-block">
+                        Popular Routes
+                        <span class="absolute bottom-0 left-0 w-12 h-1 bg-gradient-to-r from-travel-orange to-travel-gold rounded-full"></span>
+                    </h4>
+                    <ul class="space-y-3">
+                        <li>
+                            <a href="#" class="text-gray-300 hover:text-travel-orange transition-colors duration-300 flex items-center gap-2 group">
+                                <i class="fas fa-route text-xs text-travel-orange"></i>
+                                <span>Surat ⇄ Jaipur</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="text-gray-300 hover:text-travel-orange transition-colors duration-300 flex items-center gap-2 group">
+                                <i class="fas fa-route text-xs text-travel-orange"></i>
+                                <span>Barmer ⇄ Bangalore</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="text-gray-300 hover:text-travel-orange transition-colors duration-300 flex items-center gap-2 group">
+                                <i class="fas fa-route text-xs text-travel-orange"></i>
+                                <span>Bangalore ⇄ Surat</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="text-gray-300 hover:text-travel-orange transition-colors duration-300 flex items-center gap-2 group">
+                                <i class="fas fa-route text-xs text-travel-orange"></i>
+                                <span>Biaora ⇄ Jaipur</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Contact Info -->
+                <div>
+                    <h4 class="text-lg font-black text-white mb-6 relative inline-block">
+                        Get In Touch
+                        <span class="absolute bottom-0 left-0 w-12 h-1 bg-gradient-to-r from-travel-orange to-travel-gold rounded-full"></span>
+                    </h4>
+                    <ul class="space-y-4">
+                        <li>
+                            <a href="tel:+919876543210" class="flex items-start gap-3 text-gray-300 hover:text-travel-orange transition-colors group">
+                                <div class="w-10 h-10 bg-gradient-to-br from-white/10 to-white/5 rounded-lg flex items-center justify-center flex-shrink-0 group-hover:bg-travel-orange/20 transition-colors border border-white/10">
+                                    <i class="fas fa-phone text-travel-orange"></i>
+                                </div>
+                                <div>
+                                    <div class="text-xs text-gray-400 mb-1">Call Us</div>
+                                    <div class="text-sm font-semibold text-white">+91 98765 43210</div>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="mailto:info@ldramawat.com" class="flex items-start gap-3 text-gray-300 hover:text-travel-orange transition-colors group">
+                                <div class="w-10 h-10 bg-gradient-to-br from-white/10 to-white/5 rounded-lg flex items-center justify-center flex-shrink-0 group-hover:bg-travel-orange/20 transition-colors border border-white/10">
+                                    <i class="fas fa-envelope text-travel-orange"></i>
+                                </div>
+                                <div>
+                                    <div class="text-xs text-gray-400 mb-1">Email Us</div>
+                                    <div class="text-sm font-semibold text-white">info@ldramawat.com</div>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Bottom Bar -->
+            <div class="border-t border-white/10 pt-8">
+                <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+                    <p class="text-gray-300 text-sm">
+                        &copy; 2024 <span class="text-white font-bold">Shree LD.Ramawat Travels</span>. All rights reserved.
+                    </p>
+                    <div class="flex items-center gap-6 text-sm">
+                        <a href="#" class="text-gray-300 hover:text-travel-orange transition-colors">Privacy Policy</a>
+                        <span class="text-gray-600">•</span>
+                        <a href="#" class="text-gray-300 hover:text-travel-orange transition-colors">Terms of Service</a>
+                        <span class="text-gray-600">•</span>
+                        <a href="#" class="text-gray-300 hover:text-travel-orange transition-colors">Refund Policy</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+    <!-- Custom JS -->
+    <script src="script.js"></script>
+
+    <script>
+        // Amenities converted to static grid - swiper removed
+        // Testimonials Swiper - Simple
+        new Swiper('.testimonialsSwiper', {
+            slidesPerView: 1,
+            spaceBetween: 30,
+            loop: true,
+            autoplay: {
+                delay: 4000,
+                disableOnInteraction: false,
+            },
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            breakpoints: {
+                768: {
+                    slidesPerView: 2,
+                    spaceBetween: 30,
+                },
+                1024: {
+                    slidesPerView: 3,
+                    spaceBetween: 30,
+                },
+            },
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Shree LD.Ramawat Travels</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'travel-blue': '#442E3A',
+                        'travel-orange': '#D4A574',
+                        'travel-teal': '#8B6F7E',
+                        'travel-dark': '#442E3A',
+                        'travel-cyan': '#B8967D',
+                        'travel-gold': '#D4A574'
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        body {
+            font-family: 'Open Sans', sans-serif;
+        }
+        h1, h2, h3, h4, h5 {
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        /* Hero Image Custom Cut */
+        .hero-image-cut {
+            clip-path: polygon(
+                8% 0%, 
+                92% 0%, 
+                100% 8%, 
+                100% 75%, 
+                95% 88%, 
+                85% 100%, 
+                15% 100%, 
+                5% 92%, 
+                0% 80%, 
+                0% 12%
+            );
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .hero-image-cut:hover {
+            clip-path: polygon(
+                5% 0%, 
+                95% 0%, 
+                100% 5%, 
+                100% 85%, 
+                97% 95%, 
+                90% 100%, 
+                10% 100%, 
+                3% 95%, 
+                0% 85%, 
+                0% 5%
+            );
+            transform: scale(1.02);
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+
+    <!-- Top Bar -->
+    <div class="bg-travel-dark text-white py-3 transition-all duration-300" id="topBar">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row justify-between items-center gap-2 text-sm">
+            <div class="flex items-center gap-6">
+                <a href="tel:+919876543210" class="hover:text-travel-orange transition flex items-center gap-2">
+                    <i class="fas fa-phone"></i>
+                    <span>+91 98765 43210</span>
+                </a>
+                <a href="mailto:info@ldramawat.com" class="hover:text-travel-orange transition flex items-center gap-2">
+                    <i class="fas fa-envelope"></i>
+                    <span>info@ldramawat.com</span>
+                </a>
+            </div>
+            <div class="flex items-center gap-4">
+                <a href="#" class="hover:text-travel-orange transition"><i class="fab fa-facebook"></i></a>
+                <a href="#" class="hover:text-travel-orange transition"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="hover:text-travel-orange transition"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="hover:text-travel-orange transition"><i class="fab fa-linkedin"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="sticky top-0 w-full bg-white/95 backdrop-blur-sm shadow-lg z-50" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <a href="index.html" class="flex items-center space-x-3">
+                        <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-md">
+                            <span class="text-travel-cyan text-xl font-black">LD</span>
+                        </div>
+                        <div>
+                            <h1 class="text-2xl font-display font-bold text-travel-dark">Shree LD.Ramawat</h1>
+                            <p class="text-xs text-travel-teal">Travels</p>
+                        </div>
+                    </a>
+                </div>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="index.html" class="nav-link text-gray-700 hover:text-travel-blue transition">Home</a>
+                    <a href="packages.html" class="nav-link text-gray-700 hover:text-travel-blue transition">Tour Packages</a>
+                    <a href="about.html" class="nav-link text-travel-blue hover:text-travel-dark font-semibold transition">About Us</a>
+                    <a href="contact.html" class="nav-link text-gray-700 hover:text-travel-blue transition">Contact</a>
+                    <a href="booking.html" class="btn-book bg-travel-orange text-white px-6 py-2 rounded-full hover:bg-orange-600 transition font-semibold">
+                        Book Now
+                    </a>
+                </div>
+                
+                <!-- Mobile Menu Button -->
+                <button class="md:hidden text-2xl text-travel-dark" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div class="md:hidden hidden bg-white border-t" id="mobileMenu">
+            <div class="px-4 py-6 space-y-4">
+                <a href="index.html" class="block text-gray-700 hover:text-travel-blue">Home</a>
+                <a href="packages.html" class="block text-gray-700 hover:text-travel-blue">Tour Packages</a>
+                <a href="about.html" class="block text-travel-blue font-semibold">About Us</a>
+                <a href="contact.html" class="block text-gray-700 hover:text-travel-blue">Contact</a>
+                <a href="booking.html" class="block bg-travel-orange text-white px-6 py-2 rounded-full text-center">Book Now</a>
+            </div>
+        </div>
+    </nav>
+
+
+    <!-- Founder Section -->
+    <section class="py-8 bg-white">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center mb-12">
+                <div class="inline-flex items-center gap-2 bg-travel-dark/10 px-4 py-2 rounded-full mb-4">
+                    <span class="w-2 h-2 bg-travel-orange rounded-full"></span>
+                    <span class="text-sm font-bold text-travel-dark uppercase tracking-wide">Our Legacy</span>
+                </div>
+                <h2 class="text-4xl md:text-5xl font-black text-travel-dark">
+                    Founded By <span class="text-travel-orange">Visionary Leader</span>
+                </h2>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div class="relative">
+                    <div class="absolute inset-0 bg-gradient-to-br from-travel-orange/20 to-travel-dark/20 rounded-3xl transform -rotate-3"></div>
+                    <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=600&h=700&fit=crop" 
+                         alt="Founder" 
+                         class="relative z-10 w-full h-[450px] object-cover rounded-3xl shadow-2xl bg-gray-50">
+                </div>
+
+                <div class="space-y-6">
+                    <h3 class="text-3xl md:text-4xl font-black text-travel-dark">
+                        Late. Lal Das Ramawat
+                    </h3>
+                    <p class="text-xl font-semibold text-travel-teal">Founder & Visionary (1962)</p>
+                    
+                    <div class="h-1 w-20 bg-gradient-to-r from-travel-orange to-travel-gold rounded-full"></div>
+                    
+                    <p class="text-gray-700 leading-relaxed text-lg">
+                        <span class="font-bold text-travel-dark">Late. Lal Das Ramawat</span> established Shree LD.Ramawat Travels in 1962 with a vision to revolutionize the travel industry in India. His dedication to providing safe, comfortable, and affordable transportation solutions laid the foundation for what has become one of India's most trusted travel service providers.
+                    </p>
+                    
+                    <p class="text-gray-700 leading-relaxed">
+                        His core values of integrity, customer satisfaction, and innovation continue to guide our operations today. Under his leadership, the company grew from a small local service to a pan-India travel solution provider, touching the lives of millions of travelers.
+                    </p>
+                    
+                    <div class="bg-gradient-to-r from-travel-dark/5 to-travel-orange/5 p-6 rounded-2xl border-l-4 border-travel-orange">
+                        <p class="text-travel-dark italic font-medium">
+                            "Travel is not just about reaching a destination, it's about the journey and the trust people place in us to get them there safely."
+                        </p>
+                        <p class="text-sm text-gray-600 mt-2">- Late. Lal Das Ramawat</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Values -->
+    <section class="py-16 bg-gradient-to-br from-gray-50 to-blue-50">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl md:text-5xl font-black text-travel-dark mb-4">
+                    Our Core <span class="text-travel-orange">Values</span>
+                </h2>
+                <p class="text-gray-600 text-lg">Principles that guide everything we do</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
+                    <div class="w-16 h-16 bg-gradient-to-br from-travel-orange to-travel-gold rounded-xl flex items-center justify-center mb-6">
+                        <i class="fas fa-shield-alt text-white text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl font-black text-travel-dark mb-3">Safety First</h3>
+                    <p class="text-gray-600">Your safety is our top priority with GPS-tracked vehicles and trained drivers.</p>
+                </div>
+
+                <div class="bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
+                    <div class="w-16 h-16 bg-gradient-to-br from-travel-dark to-travel-teal rounded-xl flex items-center justify-center mb-6">
+                        <i class="fas fa-heart text-white text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl font-black text-travel-dark mb-3">Customer Care</h3>
+                    <p class="text-gray-600">24/7 support and dedicated customer service for a seamless experience.</p>
+                </div>
+
+                <div class="bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
+                    <div class="w-16 h-16 bg-gradient-to-br from-travel-orange to-travel-dark rounded-xl flex items-center justify-center mb-6">
+                        <i class="fas fa-award text-white text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl font-black text-travel-dark mb-3">Excellence</h3>
+                    <p class="text-gray-600">Committed to delivering the highest quality service on every journey.</p>
+                </div>
+
+                <div class="bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
+                    <div class="w-16 h-16 bg-gradient-to-br from-travel-teal to-travel-gold rounded-xl flex items-center justify-center mb-6">
+                        <i class="fas fa-lightbulb text-white text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl font-black text-travel-dark mb-3">Innovation</h3>
+                    <p class="text-gray-600">Continuously improving with modern technology and customer feedback.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Statistics -->
+    <section class="py-12 relative overflow-hidden mb-8">
+        <!-- Gradient Background -->
+        <div class="absolute inset-0 bg-gradient-to-br from-travel-dark via-travel-teal to-travel-dark"></div>
+        
+        <!-- Animated Background Shapes -->
+        <div class="absolute inset-0 opacity-10">
+            <div class="absolute top-10 left-10 w-64 h-64 bg-white rounded-full blur-3xl animate-pulse"></div>
+            <div class="absolute bottom-10 right-10 w-96 h-96 bg-travel-orange rounded-full blur-3xl animate-pulse" style="animation-delay: 1s;"></div>
+        </div>
+        
+        <div class="max-w-7xl mx-auto px-4 relative z-10">
+            <!-- Section Header -->
+            <div class="text-center mb-8">
+                <h2 class="text-3xl md:text-4xl font-black text-white mb-2">
+                    Our Journey in <span class="text-travel-orange">Numbers</span>
+                </h2>
+                <p class="text-white/80">Building trust through dedication and excellence</p>
+            </div>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <!-- Stat 1 -->
+                <div class="text-center">
+                    <div class="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20">
+                        <div class="text-4xl md:text-5xl font-black text-white mb-2">
+                            63+
+                        </div>
+                        <div class="text-white/90 text-sm font-semibold">Years of Service</div>
+                        <div class="h-1 w-12 bg-gradient-to-r from-travel-orange to-travel-gold mx-auto mt-3 rounded-full"></div>
+                    </div>
+                </div>
+                
+                <!-- Stat 2 -->
+                <div class="text-center">
+                    <div class="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20">
+                        <div class="text-4xl md:text-5xl font-black text-white mb-2">
+                            1M+
+                        </div>
+                        <div class="text-white/90 text-sm font-semibold">Happy Customers</div>
+                        <div class="h-1 w-12 bg-gradient-to-r from-travel-orange to-travel-gold mx-auto mt-3 rounded-full"></div>
+                    </div>
+                </div>
+                
+                <!-- Stat 3 -->
+                <div class="text-center">
+                    <div class="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20">
+                        <div class="text-4xl md:text-5xl font-black text-white mb-2">
+                            500+
+                        </div>
+                        <div class="text-white/90 text-sm font-semibold">Routes Covered</div>
+                        <div class="h-1 w-12 bg-gradient-to-r from-travel-orange to-travel-gold mx-auto mt-3 rounded-full"></div>
+                    </div>
+                </div>
+                
+                <!-- Stat 4 -->
+                <div class="text-center">
+                    <div class="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20">
+                        <div class="text-4xl md:text-5xl font-black text-white mb-2">
+                            200+
+                        </div>
+                        <div class="text-white/90 text-sm font-semibold">Modern Buses</div>
+                        <div class="h-1 w-12 bg-gradient-to-r from-travel-orange to-travel-gold mx-auto mt-3 rounded-full"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white pt-16 pb-8 relative overflow-hidden">
+        <!-- Animated Gradient Background -->
+        <div class="absolute inset-0 bg-gradient-to-br from-gray-900 via-slate-800 to-gray-900"></div>
+        
+        <!-- Decorative Elements with Animation -->
+        <div class="absolute top-0 left-0 w-96 h-96 bg-travel-orange/10 rounded-full blur-3xl animate-pulse"></div>
+        <div class="absolute bottom-0 right-0 w-96 h-96 bg-travel-teal/10 rounded-full blur-3xl animate-pulse" style="animation-delay: 1.5s;"></div>
+        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-gradient-to-r from-travel-orange/5 to-travel-teal/5 rounded-full blur-3xl"></div>
+        
+        <!-- Dot Pattern Overlay -->
+        <div class="absolute inset-0 opacity-5" style="background-image: radial-gradient(circle, #ffffff 1px, transparent 1px); background-size: 30px 30px;"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 relative z-10">
+            <!-- Main Footer Content -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+                <!-- Company Info -->
+                <div class="lg:col-span-1">
+                    <div class="flex items-center gap-3 mb-4 bg-white/5 backdrop-blur-sm p-3 rounded-xl border border-white/10">
+                        <div class="w-14 h-14 bg-gradient-to-br from-travel-orange to-travel-gold rounded-xl flex items-center justify-center shadow-lg">
+                            <span class="text-white text-2xl font-black">LD</span>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-black text-white drop-shadow-lg">Shree LD.Ramawat</h3>
+                            <p class="text-xs text-travel-orange font-semibold">TRAVELS</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 text-sm mb-6 leading-relaxed">Your trusted travel partner since 1962. Connecting destinations with comfort and reliability.</p>
+                    
+                    <!-- Social Links -->
+                    <div class="flex gap-3">
+                        <a href="#" class="w-10 h-10 bg-gradient-to-br from-white/10 to-white/5 hover:from-travel-orange hover:to-travel-gold rounded-lg flex items-center justify-center transition-all duration-300 hover:scale-110 border border-white/10">
+                            <i class="fab fa-facebook text-lg text-white"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-gradient-to-br from-white/10 to-white/5 hover:from-travel-orange hover:to-travel-gold rounded-lg flex items-center justify-center transition-all duration-300 hover:scale-110 border border-white/10">
+                            <i class="fab fa-instagram text-lg text-white"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-gradient-to-br from-white/10 to-white/5 hover:from-travel-orange hover:to-travel-gold rounded-lg flex items-center justify-center transition-all duration-300 hover:scale-110 border border-white/10">
+                            <i class="fab fa-twitter text-lg text-white"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-gradient-to-br from-white/10 to-white/5 hover:from-travel-orange hover:to-travel-gold rounded-lg flex items-center justify-center transition-all duration-300 hover:scale-110 border border-white/10">
+                            <i class="fab fa-linkedin text-lg text-white"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="text-lg font-black text-white mb-6 relative inline-block">
+                        Quick Links
+                        <span class="absolute bottom-0 left-0 w-12 h-1 bg-gradient-to-r from-travel-orange to-travel-gold rounded-full"></span>
+                    </h4>
+                    <ul class="space-y-3">
+                        <li>
+                            <a href="index.html" class="text-gray-300 hover:text-travel-orange transition-colors duration-300 flex items-center gap-2 group">
+                                <i class="fas fa-chevron-right text-xs text-travel-orange group-hover:translate-x-1 transition-transform"></i>
+                                <span>Home</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="packages.html" class="text-gray-300 hover:text-travel-orange transition-colors duration-300 flex items-center gap-2 group">
+                                <i class="fas fa-chevron-right text-xs text-travel-orange group-hover:translate-x-1 transition-transform"></i>
+                                <span>Tour Packages</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="about.html" class="text-gray-300 hover:text-travel-orange transition-colors duration-300 flex items-center gap-2 group">
+                                <i class="fas fa-chevron-right text-xs text-travel-orange group-hover:translate-x-1 transition-transform"></i>
+                                <span>About Us</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="contact.html" class="text-gray-300 hover:text-travel-orange transition-colors duration-300 flex items-center gap-2 group">
+                                <i class="fas fa-chevron-right text-xs text-travel-orange group-hover:translate-x-1 transition-transform"></i>
+                                <span>Contact</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Popular Routes -->
+                <div>
+                    <h4 class="text-lg font-black text-white mb-6 relative inline-block">
+                        Popular Routes
+                        <span class="absolute bottom-0 left-0 w-12 h-1 bg-gradient-to-r from-travel-orange to-travel-gold rounded-full"></span>
+                    </h4>
+                    <ul class="space-y-3">
+                        <li>
+                            <a href="#" class="text-gray-300 hover:text-travel-orange transition-colors duration-300 flex items-center gap-2 group">
+                                <i class="fas fa-route text-xs text-travel-orange"></i>
+                                <span>Surat ⇄ Jaipur</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="text-gray-300 hover:text-travel-orange transition-colors duration-300 flex items-center gap-2 group">
+                                <i class="fas fa-route text-xs text-travel-orange"></i>
+                                <span>Barmer ⇄ Bangalore</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="text-gray-300 hover:text-travel-orange transition-colors duration-300 flex items-center gap-2 group">
+                                <i class="fas fa-route text-xs text-travel-orange"></i>
+                                <span>Bangalore ⇄ Surat</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="text-gray-300 hover:text-travel-orange transition-colors duration-300 flex items-center gap-2 group">
+                                <i class="fas fa-route text-xs text-travel-orange"></i>
+                                <span>Biaora ⇄ Jaipur</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Contact Info -->
+                <div>
+                    <h4 class="text-lg font-black text-white mb-6 relative inline-block">
+                        Get In Touch
+                        <span class="absolute bottom-0 left-0 w-12 h-1 bg-gradient-to-r from-travel-orange to-travel-gold rounded-full"></span>
+                    </h4>
+                    <ul class="space-y-4">
+                        <li>
+                            <a href="tel:+919876543210" class="flex items-start gap-3 text-gray-300 hover:text-travel-orange transition-colors group">
+                                <div class="w-10 h-10 bg-gradient-to-br from-white/10 to-white/5 rounded-lg flex items-center justify-center flex-shrink-0 group-hover:bg-travel-orange/20 transition-colors border border-white/10">
+                                    <i class="fas fa-phone text-travel-orange"></i>
+                                </div>
+                                <div>
+                                    <div class="text-xs text-gray-400 mb-1">Call Us</div>
+                                    <div class="text-sm font-semibold text-white">+91 98765 43210</div>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="mailto:info@ldramawat.com" class="flex items-start gap-3 text-gray-300 hover:text-travel-orange transition-colors group">
+                                <div class="w-10 h-10 bg-gradient-to-br from-white/10 to-white/5 rounded-lg flex items-center justify-center flex-shrink-0 group-hover:bg-travel-orange/20 transition-colors border border-white/10">
+                                    <i class="fas fa-envelope text-travel-orange"></i>
+                                </div>
+                                <div>
+                                    <div class="text-xs text-gray-400 mb-1">Email Us</div>
+                                    <div class="text-sm font-semibold text-white">info@ldramawat.com</div>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Bottom Bar -->
+            <div class="border-t border-white/10 pt-8">
+                <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+                    <p class="text-gray-300 text-sm">
+                        &copy; 2024 <span class="text-white font-bold">Shree LD.Ramawat Travels</span>. All rights reserved.
+                    </p>
+                    <div class="flex items-center gap-6 text-sm">
+                        <a href="#" class="text-gray-300 hover:text-travel-orange transition-colors">Privacy Policy</a>
+                        <span class="text-gray-600">•</span>
+                        <a href="#" class="text-gray-300 hover:text-travel-orange transition-colors">Terms of Service</a>
+                        <span class="text-gray-600">•</span>
+                        <a href="#" class="text-gray-300 hover:text-travel-orange transition-colors">Refund Policy</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
